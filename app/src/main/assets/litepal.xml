@@ -1,0 +1,9 @@
+<litepal>
+    <dbname value="fingerweather"/>
+    <version value="1"/>
+    <list>
+        <mapping class="com.example.fingerweather.db.Province"></mapping>
+        <mapping class="com.example.fingerweather.db.City"></mapping>
+        <mapping class="com.example.fingerweather.db.County"></mapping>
+    </list>
+</litepal>
