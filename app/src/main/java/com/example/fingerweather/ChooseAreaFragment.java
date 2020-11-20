@@ -20,6 +20,9 @@ import com.example.fingerweather.db.City;
 import com.example.fingerweather.db.County;
 import com.example.fingerweather.db.Province;
 
+import org.litepal.crud.LitePalSupport;
+import org.litepal.exceptions.DataSupportException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,12 +63,51 @@ public class ChooseAreaFragment extends Fragment {
                 if(currentLevel==LEVEL_PROVINCE){
                     selectedProvince=provinceList.get(position);
                     queryCities();
+                }else if (currentLevel==LEVEL_CITY){
+                    selectedCity=cityList.get(position);
+                    queryCounties();
                 }
                 
             }
-
-            private void queryCities() {
+        });
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (currentLevel==LEVEL_COUNTY){
+                    queryCities();
+                }
             }
         });
+        queryProvinces();
+    }
+
+    private void queryProvinces() {
+        titleText.setText(("中国"));
+        backButton.setVisibility(View.GONE);
+//        provinceList= LitePalSupport.(Province.class);
+        if (provinceList.size()>0){
+            dataList.clear();
+            for (Province province:provinceList){
+                dataList.add(province.getProvinceName());
+            }
+            adapter.notifyDataSetChanged();
+            listView.setSelection(0);
+            currentLevel=LEVEL_PROVINCE;
+        }else{
+            String address="http://guolin.tech/api/china";
+            queryFromServer(address,"province");
+        }
+    }
+
+    private void queryFromServer(String address, String province) {
+    }
+
+    private void queryCounties() {
+        titleText.setText(selectedProvince.getProvinceName());
+        backButton.setVisibility(View.VISIBLE);
+//        cityList=LitePalSupport.
+    }
+
+    private void queryCities() {
     }
 }
