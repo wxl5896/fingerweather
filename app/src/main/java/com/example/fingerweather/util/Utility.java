@@ -5,6 +5,8 @@ import android.text.TextUtils;
 import com.example.fingerweather.db.City;
 import com.example.fingerweather.db.County;
 import com.example.fingerweather.db.Province;
+import com.example.fingerweather.gson.Weather;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -66,5 +68,18 @@ public class Utility {
             }
         }
         return false;
+    }
+    /*将返回的JSON解析成Weather实体类*/
+    public static Weather handleWeatherResponse(String response){
+        try {
+            JSONObject jsonObject=new JSONObject(response);
+            JSONArray jsonArray=jsonObject.getJSONArray("HeWeather");
+            String weatherContent=jsonArray.getJSONObject(0).toString();
+            Weather weather= new Gson().fromJson(weatherContent,Weather.class);
+            return  weather;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
