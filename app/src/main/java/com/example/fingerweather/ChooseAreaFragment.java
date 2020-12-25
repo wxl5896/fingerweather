@@ -130,7 +130,7 @@ public class ChooseAreaFragment extends Fragment {
             listView.setSelection(0);
             currentLevel = LEVEL_PROVINCE;
         }else{
-            String address = "http://guolin.tech/api/china";
+            String address = "http://192.168.43.23:8080/Weather/findChina/";
             queryFromServer(address,"province");
         }
     }
@@ -151,7 +151,7 @@ public class ChooseAreaFragment extends Fragment {
             currentLevel = LEVEL_CITY;
         }else{
             int provinceCode = selectedProvince.getProvinceCode();
-            String address = "http://guolin.tech/api/china/" + provinceCode;
+            String address = "http://192.168.43.23:8080/Weather/findChina/" + provinceCode;
             queryFromServer(address,"city");
         }
     }
@@ -172,7 +172,7 @@ public class ChooseAreaFragment extends Fragment {
         }else{
             int provinceCode = selectedProvince.getProvinceCode();
             int cityCode = selectedCity.getCityCode();
-            String address = "http://guolin.tech/api/china/"
+            String address = "http://192.168.43.23:8080/Weather/findChina/"
                     + provinceCode + "/" + cityCode;
             queryFromServer(address,"county");
         }
@@ -232,12 +232,10 @@ public class ChooseAreaFragment extends Fragment {
         }
         progressDialog.show();
     }
-
     //关闭进度对话框
     private void closeProgressDialog(){
         if(progressDialog != null){
             progressDialog.dismiss();
         }
-
     }
 }
